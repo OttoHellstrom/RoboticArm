@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<robot name="simple_arm">
+
+  <!-- Baslänk -->
+  <link name="base_link">
+    <inertial>
+      <mass value="1.0"/>
+      <inertia ixx="0.01" iyy="0.01" izz="0.01"/>
+    </inertial>
+  </link>
+
+  <!-- Länk 1 -->
+  <link name="link1">
+    <visual>
+      <geometry>
+        <cylinder length="0.3" radius="0.02"/>
+      </geometry>
+      <origin xyz="0 0 0.15"/>
+    </visual>
+  </link>
+
+  <!-- Länk 2 -->
+  <link name="link2">
+    <visual>
+      <geometry>
+        <cylinder length="0.25" radius="0.02"/>
+      </geometry>
+      <origin xyz="0 0 0.125"/>
+    </visual>
+  </link>
+
+  <!-- Led 1: rotation runt Z-axeln -->
+  <joint name="joint1" type="revolute">
+    <parent link="base_link"/>
+    <child link="link1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14" upper="3.14" effort="10" velocity="1"/>
+  </joint>
+
+  <!-- Led 2: rotation runt Y-axeln -->
+  <joint name="joint2" type="revolute">
+    <parent link="link1"/>
+    <child link="link2"/>
+    <origin xyz="0 0 0.3" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="1"/>
+  </joint>
+
+</robot>
