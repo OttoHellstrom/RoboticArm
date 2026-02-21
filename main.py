@@ -1,27 +1,35 @@
+import serial
 from Controller import get_controller_input
 
-while True:
-    axes, buttons = get_controller_input()
+def scale_axis(value, max_mm=10):
+    return value * max_mm
 
-    lx = axes[0]
-    ly = axes[1]
+def joystick_to_gcode(lx, ly, feedrate=500):
+    x = scale_axis(lx)
+    y = scale_axis(-ly)
 
-    x_button = buttons[0]
+    return f"G1 X{x:.2f} Y{y:.2f} F{feedrate}"
 
-    #print("LX:", lx, "LY:", ly, "X:", x_button)
+ser = serial.Serial('COM3', 115200)
 
-    if x_button:
-        print("X button pressed")
+def main():
+    while True:
+        axes, buttons = get_controller_input()
+        lx = axes[0]
+        ly = axes[1]
+        
+        axes, buttons = get_controller_input()
+        lx, ly = axes[0], axes[1]
+
+        gcode = joystick_to_gcode(lx, ly)
+        ser.write((gcode + "\n").encode())
+
+        print("Sent:", gcode)
+        
+
+
+
+
+
+
     
-    if lx > 0.9:
-        print("Right")
-    elif lx < -0.9:
-        print("Left")
-    
-    if ly > 0.9:
-        print("Down")
-    elif ly < -0.9:
-        print("Up")
-
-    
-
