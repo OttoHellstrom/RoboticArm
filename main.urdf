@@ -23,13 +23,13 @@
   <link name="link2">
     <visual>
       <geometry>
-        <cylinder length="0.25" radius="0.01"/>
+        <cylinder length="0.16" radius="0.01"/>
       </geometry>
-      <origin xyz="0 0 0.125"/>
+      <origin xyz="0 0 0.08"/>
     </visual>
   </link>
 
-  <!-- Led 1: rotation runt Z-axeln -->
+  <!-- Led 1, stand -->
   <joint name="joint1" type="revolute">
     <parent link="base_link"/>
     <child link="link1"/>
@@ -38,11 +38,11 @@
     <limit lower="-3.14" upper="3.14" effort="10" velocity="1"/>
   </joint>
 
-  <!-- Led 2: rotation runt Y-axeln -->
+  <!-- Led 2, arm 1 -->
   <joint name="joint2" type="revolute">
     <parent link="link1"/>
     <child link="link2"/>
-    <origin xyz="0 0.04 0.05" rpy="0 0 0"/>
+    <origin xyz="0.038 -0.045 0.1353" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <limit lower="-1.57" upper="1.57" effort="10" velocity="1"/>
   </joint>
